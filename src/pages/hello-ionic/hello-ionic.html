@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center="">Kipo Managers</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div text-center="">
+    <img src="../../assets/img/loading_1.png" alt="">
+
+  </div>
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text" value="" [(ngModel)]="account.username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" value="" [(ngModel)]="account.password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <div padding>
+    <button ion-button color="primary" block (click)="doLogin()">Sign In</button>
+  </div>
+
+</ion-content>
