@@ -1,30 +1,67 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
-import { PeopleServiceProvider } from "../../providers/people-service/people-service";
-
+import { ProfileServiceProvider } from "../../providers/profile-service/profile-service";
+import { DashboardProvider } from "../../providers/dashboard/dashboard";
 
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
 
-  providers: [PeopleServiceProvider]
+  providers: [ProfileServiceProvider, DashboardProvider]
 })
 
 export class Dashboard {
 
-  public people: any;
+  public people: any = {};
+  public counter: any = {};
   dataUser: '';
+  filters : any = { date :{type:"week",start:"",end:""},filters:""}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public peopleService: PeopleServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  public peopleService: ProfileServiceProvider, public dashboardService: DashboardProvider) {
     this.dataUser = navParams.get('data'); //pasign paraments
-    this.loadPeople();
+    this.loadProfile()
+    this.loadCounterActive()
+    this.loadCouterVisiti();
+    this.loadCounterCheckins();
   }
 
-  loadPeople() { //get from providers
-    this.peopleService.load()
+  loadProfile() { //get from providers
+    this.peopleService.loadProfile()
       .then(data => {
         this.people = data;
+        console.log(this.people)
+      }).catch( error => {
+        console.log(error);
       });
+  }
+
+ loadCouterVisiti(){
+    this.dashboardService.loadCounterVisit(this.filters)
+    .then(visit => {      
+      this.counter.visit = visit.VISIT_CLIENTS;
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  loadCounterCheckins(){
+    console.log(this.filters);
+    this.dashboardService.loadCounterCheckins(this.filters)
+    .then(checkins => {      
+      this.counter.checkins = checkins.total;      
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  loadCounterActive(){
+    this.dashboardService.loadCounterActive(this.filters)
+    .then(users => {      
+      this.counter.users = users.active_users;      
+    }).catch(error => {
+      console.log(error);
+    })
   }
 
 }

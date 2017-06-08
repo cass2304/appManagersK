@@ -16,6 +16,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DevicesServiceProvider } from '../providers/devices-service/devices-service';
 import { PeopleServiceProvider } from '../providers/people-service/people-service';
 import { AuthProvider } from '../providers/auth/auth';
+import { ProfileServiceProvider } from '../providers/profile-service/profile-service';
+import { DashboardProvider } from '../providers/dashboard/dashboard';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { AuthProvider } from '../providers/auth/auth';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DevicesServiceProvider,
     PeopleServiceProvider,
-    AuthProvider
+    AuthProvider,
+    ProfileServiceProvider,
+    DashboardProvider
   ]
 })
 export class AppModule {}
