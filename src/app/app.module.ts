@@ -18,6 +18,9 @@ import { PeopleServiceProvider } from '../providers/people-service/people-servic
 import { AuthProvider } from '../providers/auth/auth';
 import { ProfileServiceProvider } from '../providers/profile-service/profile-service';
 import { DashboardProvider } from '../providers/dashboard/dashboard';
+import { IonicStorageModule } from '@ionic/storage';
+import { LocalStorageServiceProvider } from '../providers/local-storage-service/local-storage-service';
+
 
 
 @NgModule({
@@ -32,6 +35,7 @@ import { DashboardProvider } from '../providers/dashboard/dashboard';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
     
   ],
   bootstrap: [IonicApp],
@@ -51,7 +55,8 @@ import { DashboardProvider } from '../providers/dashboard/dashboard';
     PeopleServiceProvider,
     AuthProvider,
     ProfileServiceProvider,
-    DashboardProvider
+    DashboardProvider,
+    LocalStorageServiceProvider
   ]
 })
 export class AppModule {}

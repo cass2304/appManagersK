@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+
 
 /*
   Generated class for the AuthProvider provider.
@@ -16,12 +18,13 @@ let urlServices = 'https://ws.kipobusiness.com/api/auth';
 export class AuthProvider {
 
   data: any = null;
-  user: any = {};
+  user: any = {};    
 
-  constructor(public http: Http) {
-    this.http = http   
+  constructor(public http: Http, private storage: Storage) {
+    this.http = http
+    this.storage = storage      
   }
-
+  
   login(credentials) {
 
     this.user.username = credentials.username;
@@ -41,6 +44,7 @@ export class AuthProvider {
         .map(res => res.json())
         .subscribe(
         data => {
+          this.storage.set('session', data);
           this.data = data;
           resolve(this.data);
         }, err => {          

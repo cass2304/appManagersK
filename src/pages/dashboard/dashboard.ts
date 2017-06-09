@@ -16,52 +16,53 @@ export class Dashboard {
   public counter: any = {};
   dataUser: '';
   filters : any = { date :{type:"week",start:"",end:""},filters:""}
+  dates : any = 'week'
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-  public peopleService: ProfileServiceProvider, public dashboardService: DashboardProvider) {
-    this.dataUser = navParams.get('data'); //pasign paraments
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public peopleService: ProfileServiceProvider, 
+    public dashboardService: DashboardProvider){    
+    
     this.loadProfile()
-    this.loadCounterActive()
-    this.loadCouterVisiti();
-    this.loadCounterCheckins();
-  }
-
-  loadProfile() { //get from providers
+    this.loadData()              
+    
+}
+   
+   loadProfile() { //get from providers
     this.peopleService.loadProfile()
       .then(data => {
-        this.people = data;
-        console.log(this.people)
+        this.people = data;        
       }).catch( error => {
         console.log(error);
       });
   }
 
- loadCouterVisiti(){
+  loadData(){  
+
+    this.filters.date.type = this.dates;
+    //button 1    
     this.dashboardService.loadCounterVisit(this.filters)
     .then(visit => {      
-      this.counter.visit = visit.VISIT_CLIENTS;
+      this.counter.visit = visit.VISIT_CLIENTS;      
     }).catch(error => {
       console.log(error)
     })
-  }
-
-  loadCounterCheckins(){
-    console.log(this.filters);
-    this.dashboardService.loadCounterCheckins(this.filters)
-    .then(checkins => {      
-      this.counter.checkins = checkins.total;      
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
-  loadCounterActive(){
+    //button 2
     this.dashboardService.loadCounterActive(this.filters)
     .then(users => {      
       this.counter.users = users.active_users;      
     }).catch(error => {
       console.log(error);
     })
-  }
+    //button 3
+    this.dashboardService.loadCounterCheckins(this.filters)
+    .then(checkins => {      
+      this.counter.checkins = checkins.total;          
+    }).catch(error => {
+      console.log(error);
+    })
 
+
+  } 
+  
 }

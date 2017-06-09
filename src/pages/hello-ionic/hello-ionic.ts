@@ -26,8 +26,7 @@ export class HelloIonicPage {
 
   }
 
-  doAlert() {
-    console.log('here');
+  doAlert() {    
     let alert = this.alerCtrl.create({
       title: 'wrong access',
       message: 'incorrect email or password',
@@ -39,8 +38,7 @@ export class HelloIonicPage {
   doLogin(event) {
     //push - pop - setRoot
       this.AuthProvider.login(this.account)
-      .then(data => {       
-        console.log('sadd');        
+      .then(data => {             
         this.navCtrl.setRoot(Dashboard, {          
           data: data                            
         });

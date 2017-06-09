@@ -31,14 +31,14 @@ export class DashboardProvider {
   private dataVisit: any 
   private dataCheckin: any 
   private dataActive: any
+  private temFilter: any = {}
 
   constructor(public http: Http) {
     this.http = http;
   }
 
-  loadCounterVisit(Filters) {
-
-    if (this.dataVisit)
+  loadCounterVisit(Filters) {    
+    if (this.dataVisit && (this.temFilter !== Filters))        
       return Promise.resolve(this.dataVisit);
 
     return new Promise((resolve, reject) => {      
@@ -47,16 +47,16 @@ export class DashboardProvider {
         .map(res => res.json())
         .subscribe(
         data => {
-          this.dataVisit = data;
-          resolve(this.dataVisit);
+          this.dataVisit = data;          
+          resolve(this.dataVisit);          
         }, err => {
           reject(err)
-        });
+        },()=>{ this.temFilter = Filters});
     })
   }
 
   loadCounterActive(Filters) {
-    if (this.dataActive)
+    if (this.dataActive && (this.temFilter !== Filters))
       return Promise.resolve(this.dataActive);
 
     return new Promise((resolve, reject) => {
@@ -66,19 +66,18 @@ export class DashboardProvider {
         .subscribe(
         data => {
           this.dataActive = data;
-          resolve(this.dataActive);
+          resolve(this.dataActive);          
         }, err => {
           reject(err)
+        },() =>{          
         });
     })
 
   }
 
   loadCounterCheckins(Filters) {    
-    if (this.dataCheckin){
-      
-      return Promise.resolve(this.dataCheckin);
-    }
+    if (this.dataCheckin && (this.temFilter !== Filters))
+      return Promise.resolve(this.dataCheckin)
       
     return new Promise((resolve, reject) => {
      
@@ -90,7 +89,7 @@ export class DashboardProvider {
           resolve(this.dataCheckin);
         }, err => {          
           reject(err)
-        });
+        },()=>{});
     })
 
   }
