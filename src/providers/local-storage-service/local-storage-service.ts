@@ -16,13 +16,13 @@ export class LocalStorageServiceProvider {
   }
 
   //This returns a promise but we can get away without handling it in this case.
-  setSession() {
-    this.storage.set('session', name);
+  setSession(value) {   
+    this.storage.set('session', value);
   };
   
-  getSession() {
+  getSession(cb) {
     this.storage.get('session').then((name) => {
-      console.log('Your name is', name);
+      cb (name)
     });
   };
   

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+
+
 import 'rxjs/add/operator/map';
 
 /*
@@ -9,18 +11,20 @@ import 'rxjs/add/operator/map';
   for more info on providers and Angular 2 DI.
 */
 let urlServices = 'https://ws.kipobusiness.com/api/profile';
-let token = 'Mjc1NzIwN2JiMTU1YTAwYjU3ZjUyZDRmNzUyYjU4MWFkOGEwYjUzOGVhODk2OGRkNDc1MzkxNmYwZDY2NTA2ZXw2YTQ5ZDk1OTZlNjZhMzgxYjM0MDk0OTkyNzA4MTA1NnxuaW5qYUBraXBvLmNv';
 
 @Injectable()
 export class ProfileServiceProvider {
 
+  
+
   profile: any = null;
 
   constructor(public http: Http) {
-    this.http = http
+    this.http = http    
   }
 
-  loadProfile() {
+  loadProfile(value) {    
+
     if (this.profile)
       return Promise.resolve(this.profile)
 
@@ -28,8 +32,8 @@ export class ProfileServiceProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', token);
-
+      headers.append('Authorization', value);
+      
       this.http.get(urlServices, { headers: headers })
         .map(res => res.json())
         .subscribe(data => {

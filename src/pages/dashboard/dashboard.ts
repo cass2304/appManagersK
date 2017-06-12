@@ -21,7 +21,9 @@ export class Dashboard {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public peopleService: ProfileServiceProvider, 
-    public dashboardService: DashboardProvider){    
+    public dashboardService: DashboardProvider){ 
+
+    this.dataUser = this.navParams.get('data').token
     
     this.loadProfile()
     this.loadData()              
@@ -29,7 +31,7 @@ export class Dashboard {
 }
    
    loadProfile() { //get from providers
-    this.peopleService.loadProfile()
+    this.peopleService.loadProfile(this.dataUser)
       .then(data => {
         this.people = data;        
       }).catch( error => {

@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 */
 
 let urlServices = 'https://ws.kipobusiness.com/api/devices?billing=true';
-let token = 'Mjc1NzIwN2JiMTU1YTAwYjU3ZjUyZDRmNzUyYjU4MWFkOGEwYjUzOGVhODk2OGRkNDc1MzkxNmYwZDY2NTA2ZXw2YTQ5ZDk1OTZlNjZhMzgxYjM0MDk0OTkyNzA4MTA1NnxuaW5qYUBraXBvLmNv';
+let token = '';
 
 @Injectable()
 export class PeopleServiceProvider {
@@ -19,7 +19,7 @@ export class PeopleServiceProvider {
 
   constructor(public http: Http) {
     this.http = http;
-    console.log('Hello PeopleServiceProvider Provider');
+    
 
   }
 
