@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { LocalStorageServiceProvider } from '../local-storage-service/local-storage-service';
 import 'rxjs/add/operator/map';
 
 /*
@@ -16,10 +17,14 @@ let token = '';
 export class PeopleServiceProvider {
 
   data: any = null;
+  providers: [LocalStorageServiceProvider]
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public storage: LocalStorageServiceProvider) {
     this.http = http;
-    
+    this.storage = storage;
+    this.storage.getSession(session =>{      
+      token = session.token;
+    })
 
   }
 
