@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
@@ -22,7 +22,10 @@ export class LocalStorageServiceProvider {
   
   getSession(cb) {
     this.storage.get('session').then((name) => {
-      cb (name)
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', name.token);
+      cb (headers)
     });
   };
   

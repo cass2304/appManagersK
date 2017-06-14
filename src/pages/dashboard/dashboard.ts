@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 import { ProfileServiceProvider } from "../../providers/profile-service/profile-service";
 import { DashboardProvider } from "../../providers/dashboard/dashboard";
+import { ClientSectionPage } from "../client-section/client-section";
 
 @Component({
   selector: 'page-dashboard',
@@ -64,7 +65,13 @@ export class Dashboard {
       console.log(error);
     })
 
+  }
 
-  } 
+  actionClient(){
+
+    this.navCtrl.push(ClientSectionPage, {          
+          data: this.dataUser                            
+        });
+  }
   
 }

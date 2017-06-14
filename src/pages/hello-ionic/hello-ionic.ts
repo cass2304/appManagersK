@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-
 import { NavController, NavParams } from 'ionic-angular';
 //import { ListPage } from '../list/list';
 import { Dashboard } from '../dashboard/dashboard';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AlertController } from 'ionic-angular';
+
+
 
 
 
@@ -22,9 +23,11 @@ export class HelloIonicPage {
 
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public AuthProvider: AuthProvider, public alerCtrl: AlertController) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, public AuthProvider: AuthProvider, 
+  public alerCtrl: AlertController) {    
   }
+
+  
 
   doAlert() {    
     let alert = this.alerCtrl.create({

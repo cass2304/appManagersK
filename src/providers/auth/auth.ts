@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { LocalStorageServiceProvider } from '../local-storage-service/local-storage-service';
 
 import 'rxjs/add/operator/map';
@@ -14,9 +14,6 @@ import 'rxjs/add/operator/map';
 
 let urlServices = 'https://ws.kipobusiness.com/api/auth';
 
-
-
-
 @Injectable()
 export class AuthProvider {
 
@@ -25,7 +22,7 @@ export class AuthProvider {
 
   providers: [LocalStorageServiceProvider]
 
-  constructor(public http: Http, public localStorage: LocalStorageServiceProvider) {
+  constructor(public http: Http, public localStorage:LocalStorageServiceProvider) {
     this.http = http
     this.localStorage = localStorage
      
@@ -42,19 +39,20 @@ export class AuthProvider {
     if (this.data)
       return Promise.resolve(this.data);
 
-    return new Promise((resolve,reject) => {
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      this.http.post(urlServices, this.user, { headers: headers })
+    return new Promise((resolve,reject) => {      
+      /*let headers = new Headers();
+      headers.append('Content-Type', 'application/json');*/
+      
+      this.http.post(urlServices, this.user)
         .map(res => res.json())
         .subscribe(
         data => {          
           this.data = data;
           this.localStorage.setSession(this.data);
           resolve(this.data);
-        }, err => {          
+        }, err => {  
+          console.log(err);
+                  
           reject(err)
         });
     })
