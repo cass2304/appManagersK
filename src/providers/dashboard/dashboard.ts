@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
+import urlDashboard from '../../common/comon';
+import { LocalStorageServiceProvider } from '../local-storage-service/local-storage-service';
 
 import 'rxjs/add/operator/map';
 
@@ -18,78 +20,81 @@ import 'rxjs/add/operator/map';
   //filters {"date":{"type":"week","start":"","end":""},"filters":[]}
 */
 
-let urlServices = 'http://corev3.kipo.co/api/dashboard/';
-let token = 'Mjc1NzIwN2JiMTU1YTAwYjU3ZjUyZDRmNzUyYjU4MWFkOGEwYjUzOGVhODk2OGRkNDc1MzkxNmYwZDY2NTA2ZXw2YTQ5ZDk1OTZlNjZhMzgxYjM0MDk0OTkyNzA4MTA1NnxuaW5qYUBraXBvLmNv';
-
-let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', token);
 
 @Injectable()
 export class DashboardProvider {
 
-  private dataVisit: any 
-  private dataCheckin: any 
+  private dataVisit: any
+  private dataCheckin: any
   private dataActive: any
   private temFilter: any = {}
 
-  constructor(public http: Http) {
+  constructor(public http: Http,  public localStorage: LocalStorageServiceProvider) {
     this.http = http;
   }
 
-  loadCounterVisit(Filters) {    
-    if (this.dataVisit && (this.temFilter !== Filters))        
+  loadCounterVisit(Filters) {
+    if (this.dataVisit && (this.temFilter !== Filters))
       return Promise.resolve(this.dataVisit);
 
-    return new Promise((resolve, reject) => {      
-
-      this.http.post(urlServices + 'clients/visit', Filters, { headers: headers })
+    return new Promise((resolve, reject) => {
+      this.localStorage.getSession(value =>{
+        this.http.post(urlDashboard.urlCoreNode + 'dashboard/clients/visit', Filters, { headers: value })
         .map(res => res.json())
         .subscribe(
         data => {
-          this.dataVisit = data;          
-          resolve(this.dataVisit);          
+          this.dataVisit = data;
+          resolve(this.dataVisit);
         }, err => {
           reject(err)
-        },()=>{ this.temFilter = Filters});
+        }, () => { this.temFilter = Filters });
+      })
+      
     })
   }
 
-  loadCounterActive(Filters) {
+  loadCounterActive(Filters) {    
+
     if (this.dataActive && (this.temFilter !== Filters))
       return Promise.resolve(this.dataActive);
 
     return new Promise((resolve, reject) => {
-
-      this.http.post(urlServices + 'users/active', Filters, { headers: headers })
+      
+      this.localStorage.getSession(value =>{
+        this.http.post(urlDashboard.urlCoreNode + 'dashboard/users/active', Filters, { headers: value })
         .map(res => res.json())
         .subscribe(
         data => {
           this.dataActive = data;
-          resolve(this.dataActive);          
+          resolve(this.dataActive);
         }, err => {
           reject(err)
-        },() =>{          
+        }, () => {
         });
+      })      
     })
 
   }
 
   loadCounterCheckins(Filters) {    
+
     if (this.dataCheckin && (this.temFilter !== Filters))
       return Promise.resolve(this.dataCheckin)
-      
+
     return new Promise((resolve, reject) => {
-     
-      this.http.post(urlServices + 'checkins ', Filters, { headers: headers })
+      
+      this.localStorage.getSession(value =>{
+        this.http.post(urlDashboard.urlCoreNode + 'dashboard/checkins ', Filters, { headers: value })
         .map(res => res.json())
         .subscribe(
         data => {
-          this.dataCheckin = data;          
+          this.dataCheckin = data;
           resolve(this.dataCheckin);
-        }, err => {          
+        }, err => {
           reject(err)
-        },()=>{});
+        }, () => { });
+      })
+      
     })
 
   }

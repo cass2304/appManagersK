@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { LocalStorageServiceProvider } from '../local-storage-service/local-storage-service';
+import urlApp from '../../common/comon';
 
 import 'rxjs/add/operator/map';
 
@@ -12,7 +13,6 @@ import 'rxjs/add/operator/map';
   for more info on providers and Angular 2 DI.
 */
 
-let urlServices = 'https://ws.kipobusiness.com/api/auth';
 
 @Injectable()
 export class AuthProvider {
@@ -32,18 +32,15 @@ export class AuthProvider {
 
     this.user.username = credentials.username;
     this.user.password = credentials.password;
-    this.user.key = '6a49d9596e66a381b340949927081056';
-    this.user.source = 'KipoApp';
+    this.user.key = urlApp.key;
+    this.user.source = urlApp.source;
     
 
     if (this.data)
       return Promise.resolve(this.data);
 
     return new Promise((resolve,reject) => {      
-      /*let headers = new Headers();
-      headers.append('Content-Type', 'application/json');*/
-      
-      this.http.post(urlServices, this.user)
+      this.http.post(urlApp.urlAppCore + 'auth', this.user)
         .map(res => res.json())
         .subscribe(
         data => {          

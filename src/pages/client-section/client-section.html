@@ -11,8 +11,14 @@
   </ion-navbar>
 
 </ion-header>
-
-
-<ion-content padding>
-
+<ion-content>
+  <ion-item *ngFor="let client of clients; let i = index">
+    <ion-avatar item-start class="fix-margin">      
+        <ion-icon name="person"></ion-icon>      
+    </ion-avatar>
+    <h2>Client: {{client['client_name']}}</h2>
+    <h3>Last visit: {{client.days_last_visit}}</h3>
+    <h3>Last visit made by: {{client.device_name}}</h3>
+    <p>Visits made this period: {{client.visits}}</p>
+  </ion-item>
 </ion-content>

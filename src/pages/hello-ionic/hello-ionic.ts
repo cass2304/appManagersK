@@ -4,17 +4,14 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Dashboard } from '../dashboard/dashboard';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AlertController } from 'ionic-angular';
-
-
-
-
-
+import { LoadingController } from 'ionic-angular';
 
 @Component({
   selector: 'page-hello-ionic',
   templateUrl: 'hello-ionic.html',
   providers: [AuthProvider]
 })
+
 export class HelloIonicPage {
 
   account: { username: string, password: string } = {
@@ -23,13 +20,11 @@ export class HelloIonicPage {
 
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public AuthProvider: AuthProvider, 
-  public alerCtrl: AlertController) {    
+  constructor(public navCtrl: NavController, public navParams: NavParams, public AuthProvider: AuthProvider,
+    public alerCtrl: AlertController, public loadingCtrl: LoadingController) {
   }
 
-  
-
-  doAlert() {    
+  doAlert() {
     let alert = this.alerCtrl.create({
       title: 'wrong access',
       message: 'incorrect email or password',
@@ -39,13 +34,27 @@ export class HelloIonicPage {
   }
 
   doLogin(event) {
+
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 2000
+    });
+
+    loader.present();
     //push - pop - setRoot
-      this.AuthProvider.login(this.account)
-      .then(data => {             
-        this.navCtrl.setRoot(Dashboard, {          
-          data: data                            
-        });
-      }).catch( Error => {                
+      /*this.navCtrl.setRoot(Dashboard, {
+            data: 'sales'
+          });*/
+
+    this.AuthProvider.login(this.account)
+      .then(data => {
+        setTimeout(() => {
+          this.navCtrl.setRoot(Dashboard, {
+            data: data
+          });
+        }, 2000);
+
+      }).catch(Error => {
         this.doAlert();
       });
   }

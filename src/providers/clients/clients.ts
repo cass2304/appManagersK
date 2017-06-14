@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { LocalStorageServiceProvider } from '../local-storage-service/local-storage-service'
 import urlDashboard from '../../common/comon';
 import 'rxjs/add/operator/map';
@@ -13,9 +13,9 @@ import 'rxjs/add/operator/map';
 
 
 
-@Injectable()
-export class ClientsProvider {
 
+@Injectable()
+export class ClientsProvider {  
   data: any = null;
   filters: any = { date: { type: "week", start: "", end: "" }, order: "visits desc", filters: "" }
 
@@ -37,6 +37,7 @@ export class ClientsProvider {
           data => {
             this.data = data;
             console.log(this.data);
+                      
             resolve(this.data);
           }, err => {
             reject(err)

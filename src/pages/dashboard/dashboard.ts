@@ -24,14 +24,15 @@ export class Dashboard {
     public peopleService: ProfileServiceProvider, 
     public dashboardService: DashboardProvider){ 
 
-    this.dataUser = this.navParams.get('data').token
-    
+    this.dataUser = this.navParams.get('data').token        
     this.loadProfile()
     this.loadData()              
     
 }
    
    loadProfile() { //get from providers
+     console.log(this.dataUser);
+     
     this.peopleService.loadProfile(this.dataUser)
       .then(data => {
         this.people = data;        

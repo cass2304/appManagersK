@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-
-
+import urlApp from '../../common/comon';
 import 'rxjs/add/operator/map';
 
 /*
@@ -10,12 +9,10 @@ import 'rxjs/add/operator/map';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-let urlServices = 'https://ws.kipobusiness.com/api/profile';
+
 
 @Injectable()
 export class ProfileServiceProvider {
-
-  
 
   profile: any = null;
 
@@ -32,9 +29,9 @@ export class ProfileServiceProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', value);
+      headers.append('Authorization', "OTdiMGRmZWEwMzYzY2IxZjRiMDExMzA4MTdkYmM5YTdlNWU3ZmM0Yzk1N2U2YTU4NzNhODc0MWI1Y2NiZTM0Ynw2YTQ5ZDk1OTZlNjZhMzgxYjM0MDk0OTkyNzA4MTA1NnxzYWxlc0BraXBvLmNv");
       
-      this.http.get(urlServices, { headers: headers })
+      this.http.get(urlApp.urlAppCore + 'profile', { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
           this.profile = data
