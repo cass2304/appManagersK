@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ClientsProvider } from '../../providers/clients/clients';
 
 /**
@@ -8,7 +8,7 @@ import { ClientsProvider } from '../../providers/clients/clients';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+
 @Component({
   selector: 'page-user-section',
   templateUrl: 'user-section.html',
@@ -19,12 +19,9 @@ export class UserSectionPage {
   last: any=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public users: ClientsProvider) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserSectionPage');
     this.loadUsersActivity();
   }
+
 
   loadUsersActivity(){
     this.users.activityUser()

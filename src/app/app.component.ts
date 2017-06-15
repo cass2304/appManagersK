@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
 import { Dashboard } from '../pages/dashboard/dashboard';
-
-
+import { AuthProvider } from '../providers/auth/auth';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,20 +13,23 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [AuthProvider]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
   rootPage = HelloIonicPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(
     public platform: Platform,
     public menu: MenuController,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public authProvider: AuthProvider,
+    public LoadingController: LoadingController
   ) {
     this.initializeApp();
 
@@ -35,7 +37,7 @@ export class MyApp {
     this.pages = [
       { title: 'Logout', component: HelloIonicPage },
       { title: 'about Kipo', component: ListPage },
-      { title: 'Dashboard', component: Dashboard }            
+      { title: 'Dashboard', component: Dashboard }
     ];
   }
 
@@ -48,13 +50,28 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    if(page.title === 'Logout'){
-      //TODO call service logout
-    }
-    // close the menu when clicking a link from the menu
+  doAlertLoading(_page) {
     this.menu.close();
-    // navigate to the new page if it is not the current page    
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(_page.component);
+    let loader = this.LoadingController.create({
+      content: "Bye...",
+      duration: 2000
+    });
+    loader.present();
+  }
+
+  openPage(page) {
+    if (page.title === 'Logout') {
+      //TODO call service logout
+      this.authProvider.logout()
+        .then(dt => {
+          this.doAlertLoading(page);
+        })
+    } else {
+      // close the menu when clicking a link from the menu
+      this.menu.close();
+      // navigate to the new page if it is not the current page    
+      this.nav.setRoot(page.component);
+    }
   }
 }

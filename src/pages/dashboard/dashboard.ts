@@ -70,8 +70,9 @@ export class Dashboard {
 
   actionDashboard(expression) {
 
-    switch (expression) {
+    switch (expression) {      
       case 'users':
+      console.log('users');
         this.navCtrl.push(UserSectionPage, {
           data: this.dataUser
         });
@@ -79,13 +80,14 @@ export class Dashboard {
         //Statements executed when the result of expression matches value1
         break;
       case 'checkins':
-
+        console.log('checkins');
         this.navCtrl.push(CheckinSectionPage, {
           data: this.dataUser
         });
         //Statements executed when the result of expression matches value2
         break;
       default:
+        console.log('clients');
         //Statements executed when none of the values match the value of the expression
         this.navCtrl.push(ClientSectionPage, {
           data: this.dataUser

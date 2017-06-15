@@ -31,13 +31,13 @@ export class LocalStorageServiceProvider {
   
   removeName() {
     this.storage.remove('session').then(() => {
-      console.log('name has been removed');
+      //console.log('name has been removed');
     });
   }
   
   clearKeys() {
     this.storage.clear().then(() => {
-      console.log('Keys have been cleared');
+      //console.log('Keys have been cleared');
     });
   }
 

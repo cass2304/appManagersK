@@ -6,6 +6,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 
+
 @Component({
   selector: 'page-hello-ionic',
   templateUrl: 'hello-ionic.html',
@@ -20,14 +21,28 @@ export class HelloIonicPage {
 
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public AuthProvider: AuthProvider,
-    public alerCtrl: AlertController, public loadingCtrl: LoadingController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, public AuthProvider: AuthProvider,
+    public alerCtrl: AlertController, 
+    public loadingCtrl: LoadingController) {
   }
 
   doAlert() {
     let alert = this.alerCtrl.create({
       title: 'wrong access',
       message: 'incorrect email or password',
+      buttons: ['Ok']
+    });
+    alert.present()
+  }
+
+  doAlertDelegate() {
+    this.account.password='';
+    this.account.username='';
+    let alert = this.alerCtrl.create({
+      title: 'wrong access',
+      message: 'this app is for Managers',
       buttons: ['Ok']
     });
     alert.present()
@@ -47,7 +62,11 @@ export class HelloIonicPage {
           });*/
 
     this.AuthProvider.login(this.account)
-      .then(data => {
+      .then(data => { 
+        if(data.isDelegate){
+          this.doAlertDelegate();
+          return false
+        }      
         setTimeout(() => {
           this.navCtrl.setRoot(Dashboard, {
             data: data
@@ -58,6 +77,4 @@ export class HelloIonicPage {
         this.doAlert();
       });
   }
-
-
 }
