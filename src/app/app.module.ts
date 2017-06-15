@@ -4,15 +4,13 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 
-import {Inject} from '@angular/core';
-import {Platform} from 'ionic-angular'
-
-
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { ClientSectionPage } from '../pages/client-section/client-section';
+import { CheckinSectionPage } from '../pages/checkin-section/checkin-section';
+import { UserSectionPage } from '../pages/user-section/user-section'
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,6 +25,7 @@ import { LocalStorageServiceProvider } from '../providers/local-storage-service/
 import { ClientsProvider } from '../providers/clients/clients';
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,7 +33,9 @@ import { ClientsProvider } from '../providers/clients/clients';
     ItemDetailsPage,
     ListPage,
     Dashboard,
-    ClientSectionPage  
+    ClientSectionPage,
+    CheckinSectionPage,
+    UserSectionPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,9 @@ import { ClientsProvider } from '../providers/clients/clients';
     ItemDetailsPage,
     ListPage,
     Dashboard,
-    ClientSectionPage  
+    ClientSectionPage,
+    CheckinSectionPage,
+    UserSectionPage
   ],
   providers: [
     StatusBar,

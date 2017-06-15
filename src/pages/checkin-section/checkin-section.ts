@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { ClientsProvider } from '../../providers/clients/clients';
 /**
  * Generated class for the CheckinSectionPage page.
  *
@@ -11,14 +11,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-checkin-section',
   templateUrl: 'checkin-section.html',
+  providers:[ClientsProvider]
 })
 export class CheckinSectionPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  checkins: any=[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public chekins: ClientsProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CheckinSectionPage');
+    this.loadVisitedMades();
+  }
+
+  loadVisitedMades(){
+    this.chekins.getVisitedMade()    
+    .then(data =>{       
+      this.checkins = data
+    }).catch(error => {
+      console.log(error);
+      
+    })
   }
 
 }

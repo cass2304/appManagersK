@@ -7,12 +7,36 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>checkinSection</ion-title>
+    <ion-title>Visits made</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <!--<ion-item *ngFor="let checkin of checkins; let i = index">
+    <ion-avatar item-start class="fix-margin">      
+        <ion-icon name="person"></ion-icon>      
+    </ion-avatar>
+    <h2>Date and time : {{checkin.time_zone}}</h2>
+    <h3>User: {{checkin.device_name}}</h3>
+    <h3>Client: {{checkin.device_name}}</h3>
+    <p>Category: {{checkin.category_name}}</p>
+    <p>Subcateries: {{checkin.subcategories}}</p>
+    <p>Comments: {{checkin.comments}}</p>
+  </ion-item>-->
+ 
+  <ion-card *ngFor="let checkin of checkins; let i = index">
+  <ion-card-header>
+    <ion-card-title>
+      <h2>User: {{checkin.device_name}}</h2>
+      </ion-card-title>    
+    <p>Date and time : {{checkin.time_zone}}</p>
+    <p>Client: {{checkin.device_name}}</p>
+  </ion-card-header>
+  <ion-card-content>
+   <p>Category: {{checkin.category_name}}</p>
+    <p>Subcateries: {{checkin.subcategories}}</p>
+    <p>Comments: {{checkin.comments}}</p>
+  </ion-card-content>
+</ion-card>
 </ion-content>

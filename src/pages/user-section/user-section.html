@@ -7,12 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>userSection</ion-title>
+    <ion-title>Users activity</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <ion-item *ngFor="let user of last; let i = index">
+    <ion-avatar item-start class="fix-margin">      
+        <ion-icon name="navigate"></ion-icon>      
+    </ion-avatar>
+    <h2>User : {{user.device_name}}</h2>
+    <h3>Last activity: {{user.date_time}}</h3>
+    <p>Place: {{user.place_name}}</p>
+  </ion-item>
 </ion-content>

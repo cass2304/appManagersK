@@ -29,18 +29,18 @@
 
 <ion-content padding>
   <p>
-    <button ion-button  style="height:150px" full block (click)="actionClient()">
+    <button ion-button  style="height:150px" full block (click)="actionDashboard('client')">
       <h3>Visited client  : {{counter.visit}} </h3>
       </button> 
       
   </p>
   <p>
-    <button ion-button  style="height:150px" full>
+    <button ion-button  style="height:150px" full block (click)="actionDashboard('checkins')">
       <h3>Visits made  : {{counter.checkins}} </h3>
     </button>
   </p>
   <p>
-    <button ion-button  style="height:150px" full>
+    <button ion-button  style="height:150px" full (click)="actionDashboard('users')" >
       <h3>Active users  : {{counter.users}} </h3>
     </button>
   </p>
