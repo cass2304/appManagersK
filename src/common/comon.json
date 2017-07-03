@@ -1,6 +1,7 @@
 {
   "urlAppCore": "http://ws.dev.kipobusiness.com/api/",
   "urlCoreNode":"http://corev3.kipo.co/api/",
+  "reports":"https://kbnode.kipobusiness.com/api/report/",
   "key":"6a49d9596e66a381b340949927081056",
   "source":"KipoApp"
 }

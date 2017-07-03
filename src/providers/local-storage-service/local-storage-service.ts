@@ -28,6 +28,12 @@ export class LocalStorageServiceProvider {
       cb (headers)
     });
   };
+
+  getToken(cb) {
+    this.storage.get('session').then((token)=>{
+      cb(token.token)
+    })
+  }
   
   removeName() {
     this.storage.remove('session').then(() => {

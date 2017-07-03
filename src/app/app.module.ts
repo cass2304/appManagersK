@@ -3,6 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
+import { OneSignal } from '@ionic-native/onesignal';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
@@ -11,6 +12,8 @@ import { Dashboard } from '../pages/dashboard/dashboard';
 import { ClientSectionPage } from '../pages/client-section/client-section';
 import { CheckinSectionPage } from '../pages/checkin-section/checkin-section';
 import { UserSectionPage } from '../pages/user-section/user-section'
+import { CheckinsViewPage } from '../pages/checkins-view/checkins-view';
+import { NotificationsViewPage } from '../pages/notifications-view/notifications-view';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -23,6 +26,7 @@ import { DashboardProvider } from '../providers/dashboard/dashboard';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocalStorageServiceProvider } from '../providers/local-storage-service/local-storage-service';
 import { ClientsProvider } from '../providers/clients/clients';
+import { CheckinServicesProvider } from '../providers/checkin-services/checkin-services';
 
 
 
@@ -35,7 +39,9 @@ import { ClientsProvider } from '../providers/clients/clients';
     Dashboard,
     ClientSectionPage,
     CheckinSectionPage,
-    UserSectionPage
+    UserSectionPage,
+    CheckinsViewPage,
+    NotificationsViewPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,9 @@ import { ClientsProvider } from '../providers/clients/clients';
     Dashboard,
     ClientSectionPage,
     CheckinSectionPage,
-    UserSectionPage
+    UserSectionPage,
+    CheckinsViewPage,
+    NotificationsViewPage
   ],
   providers: [
     StatusBar,
@@ -64,7 +72,9 @@ import { ClientsProvider } from '../providers/clients/clients';
     ProfileServiceProvider,
     DashboardProvider,
     LocalStorageServiceProvider,
-    ClientsProvider
+    ClientsProvider,
+    CheckinServicesProvider,
+    OneSignal
     
   ]
 })

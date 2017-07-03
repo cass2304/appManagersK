@@ -1,0 +1,79 @@
+<!--
+  Generated template for the CheckinsViewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>Checkins</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item text-center item-width="50%">
+      <ion-label>Date filters</ion-label>
+      <ion-select [(ngModel)]="dates" (ngModelChange)="reload()" interface="popover">
+        <ion-option value="day">Day</ion-option>
+        <ion-option value="day_old">Yesterday</ion-option>
+        <ion-option value="week">Week</ion-option>
+        <ion-option value="week_old">Last Week</ion-option>
+        <ion-option value="month">This month</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <div padding>
+    <ion-segment [(ngModel)]="done">
+      <ion-segment-button value="done">
+        Done
+      </ion-segment-button>
+      <ion-segment-button value="planned">
+        Planned
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="done">
+    <ion-list *ngSwitchCase="'planned'">
+     <ion-card *ngFor="let pending of checkinsPending; let i = index">
+        <ion-card-header>
+          <ion-card-title>
+            <h2>User: {{pending.user}}</h2>
+          </ion-card-title>
+          <p>Date and time : {{pending.date_time}}</p>
+          <p>Client: {{pending.client}}</p>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Category: {{pending.category_name}}</p>
+          <p>Day range: {{pending.date_range}}</p>
+          <p>Objetive: {{pending.objective}}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'done'">
+      <ion-card *ngFor="let checkin of checkinsDone; let i = index">
+        <ion-card-header>
+          <ion-card-title>
+            <h2>User: {{checkin.device_name}}</h2>
+          </ion-card-title>
+          <p>Date and time : {{checkin.time_zone}}</p>
+          <p>Client: {{checkin.client_name}}</p>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Category: {{checkin.category_name}}</p>
+          <p>Subcateries: {{checkin.subcategories}}</p>
+          <p>Comments: {{checkin.comments}}</p>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-list>
+  </div>
+
+</ion-content>

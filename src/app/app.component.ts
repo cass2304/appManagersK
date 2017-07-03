@@ -1,11 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+//import { OneSignal } from '@ionic-native/onesignal';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ListPage } from '../pages/list/list';
+//import { ListPage } from '../pages/list/list';
 import { Dashboard } from '../pages/dashboard/dashboard';
 import { AuthProvider } from '../providers/auth/auth';
+import { CheckinsViewPage } from '../pages/checkins-view/checkins-view';
+import { NotificationsViewPage } from '../pages/notifications-view/notifications-view';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,15 +32,17 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public authProvider: AuthProvider,
-    public LoadingController: LoadingController
+    public LoadingController: LoadingController,
+    //public oneSignals: OneSignal
   ) {
     this.initializeApp();
 
     // set our app's pages
     this.pages = [
+      { title: 'Dashboard', component: Dashboard },
+      { title: 'Checkins', component: CheckinsViewPage },
+      { title: 'Notifications', component: NotificationsViewPage },
       { title: 'Logout', component: HelloIonicPage },
-      { title: 'about Kipo', component: ListPage },
-      { title: 'Dashboard', component: Dashboard }
     ];
   }
 
@@ -45,6 +50,34 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      /*var notificationOpenedCallback = function (jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };*/
+
+      /*if (this.platform.is('cordova')) {
+        // You are on a device, cordova plugins are accessible
+        this.oneSignals.startInit('dddc27a1-ae73-4621-b562-40dc39a1d305', '');
+        this.oneSignals.inFocusDisplaying(this.oneSignals.OSInFocusDisplayOption.InAppAlert);
+
+        this.oneSignals.handleNotificationReceived().subscribe(() => {
+          // do something when notification is received
+        });
+
+        this.oneSignals.handleNotificationOpened().subscribe(() => {
+          // do something when a notification is opened
+        });
+      } else {
+        // Cordova not accessible, add mock data if necessary
+      }*/
+
+
+
+      /*window["plugins"].OneSignal
+        .startInit("dddc27a1-ae73-4621-b562-40dc39a1d305")
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();*/
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

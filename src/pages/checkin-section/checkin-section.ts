@@ -16,13 +16,17 @@ import { ClientsProvider } from '../../providers/clients/clients';
 export class CheckinSectionPage {
 
   checkins: any=[];
+  filters_checkins: any = {date:{type:"week",start:"",end:""},order:"time_zone desc",filters:""}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public chekins: ClientsProvider) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public chekins: ClientsProvider) {
     this.loadVisitedMades();
   }  
 
-  loadVisitedMades(){
-    this.chekins.getVisitedMade()    
+  loadVisitedMades(){    
+    this.chekins.getVisitedMade(this.filters_checkins)    
     .then(data =>{       
       this.checkins = data
     }).catch(error => {

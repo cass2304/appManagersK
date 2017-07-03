@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 import { ProfileServiceProvider } from "../../providers/profile-service/profile-service";
-import { DashboardProvider } from "../../providers/dashboard/dashboard";
-import { ClientSectionPage } from "../client-section/client-section";
-import { CheckinSectionPage } from "../checkin-section/checkin-section";
+import { DashboardProvider } from '../../providers/dashboard/dashboard';
+import { ClientSectionPage } from '../client-section/client-section';
+import { CheckinSectionPage } from '../checkin-section/checkin-section';
 import { UserSectionPage } from '../user-section/user-section';
+import { LocalStorageServiceProvider } from '../../providers/local-storage-service/local-storage-service'
 
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
 
-  providers: [ProfileServiceProvider, DashboardProvider]
+  providers: [ProfileServiceProvider, DashboardProvider, LocalStorageServiceProvider]
 })
 
 export class Dashboard {
@@ -24,15 +25,24 @@ export class Dashboard {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public peopleService: ProfileServiceProvider,
-    public dashboardService: DashboardProvider) {
+    public dashboardService: DashboardProvider,
+    public localStorage: LocalStorageServiceProvider) {
 
-    this.dataUser = this.navParams.get('data').token
+
+    if (this.navParams.get('data') !== undefined) {
+      this.dataUser = this.navParams.get('data').token;
+    }
     this.loadProfile()
     this.loadData()
-
   }
 
-  loadProfile() { //get from providers         
+  loadProfile() { //get from providers  
+
+    if (!this.dataUser) {
+      this.localStorage.getToken(token => {
+        this.dataUser = token;
+      })
+    }
     this.peopleService.loadProfile(this.dataUser)
       .then(data => {
         this.people = data;
@@ -70,9 +80,8 @@ export class Dashboard {
 
   actionDashboard(expression) {
 
-    switch (expression) {      
+    switch (expression) {
       case 'users':
-      console.log('users');
         this.navCtrl.push(UserSectionPage, {
           data: this.dataUser
         });
@@ -80,14 +89,12 @@ export class Dashboard {
         //Statements executed when the result of expression matches value1
         break;
       case 'checkins':
-        console.log('checkins');
         this.navCtrl.push(CheckinSectionPage, {
           data: this.dataUser
         });
         //Statements executed when the result of expression matches value2
         break;
       default:
-        console.log('clients');
         //Statements executed when none of the values match the value of the expression
         this.navCtrl.push(ClientSectionPage, {
           data: this.dataUser
@@ -95,7 +102,5 @@ export class Dashboard {
     }
     //break;
   }
-
-
 
 }

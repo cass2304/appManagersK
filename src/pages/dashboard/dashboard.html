@@ -17,7 +17,7 @@
 <ion-list>
   <ion-item text-center item-width="50%">
       <ion-label>Date filters</ion-label>
-      <ion-select [(ngModel)]="dates" (ngModelChange)="loadData()">
+      <ion-select [(ngModel)]="dates" (ngModelChange)="loadData()"  interface="popover">
         <ion-option value="day">Day</ion-option>
         <ion-option value="day_old">Yesterday</ion-option>
         <ion-option value="week">Week</ion-option>

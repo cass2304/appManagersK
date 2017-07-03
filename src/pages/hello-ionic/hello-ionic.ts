@@ -23,7 +23,8 @@ export class HelloIonicPage {
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams, public AuthProvider: AuthProvider,
+    public navParams: NavParams, 
+    public AuthProvider: AuthProvider,
     public alerCtrl: AlertController, 
     public loadingCtrl: LoadingController) {
   }
