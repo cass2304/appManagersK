@@ -10,8 +10,6 @@ export class ClientsProvider {
   data: any = null;
   visitedMade: any = null;
   usersActivity: any =  null;
-  filters: any = { date: { type: "week", start: "", end: "" }, order: "visits desc", filters: "" }
-  
   filters_users : any = {date:{type:"week",start:"",end:""},filters:""}
 
   constructor(
@@ -21,14 +19,14 @@ export class ClientsProvider {
 
   }
 
-  getVisitedClient() {
+  getVisitedClient(filters) {
 
     if (this.data)
       return Promise.resolve(this.data);
 
     return new Promise((resolve, reject) => {
       this.localStorage.getSession(value => {
-        this.http.post(urlDashboard.urlCoreNode + 'dashboard/clients/visit/resume?page=1&range=10', this.filters, { headers: value })
+        this.http.post(urlDashboard.urlCoreNode + 'dashboard/clients/visit/resume?page=0&range=10', filters, { headers: value })
           .map(res => res.json())
           .subscribe(
           data => {
@@ -49,7 +47,7 @@ export class ClientsProvider {
 
     return new Promise((resolve, reject) => {
       this.localStorage.getSession(value => {
-        this.http.post(urlDashboard.urlCoreNode + 'dashboard/checkins/details?page=1&range=10', filters_checkins, { headers: value })
+        this.http.post(urlDashboard.urlCoreNode + 'dashboard/checkins/details?page=0&range=10', filters_checkins, { headers: value })
           .map(res => res.json())
           .subscribe(
           data => {
@@ -63,18 +61,16 @@ export class ClientsProvider {
     })
   }
 
-  activityUser(){
-
+  activityUser(filters){    
     if (this.usersActivity)
       return Promise.resolve(this.usersActivity);
 
     return new Promise((resolve, reject) => {
       this.localStorage.getSession(value => {
-        this.http.post(urlDashboard.urlCoreNode + 'dashboard/users/lastActivity?page=1&range=5', this.filters_users, { headers: value })
+        this.http.post(urlDashboard.urlCoreNode + 'dashboard/users/lastActivity?page=0&range=10', filters, { headers: value })
           .map(res => res.json())
           .subscribe(
-          data => {
-            console.log(data)
+          data => {            
             this.usersActivity = data;
             resolve(this.usersActivity);
           }, err => {

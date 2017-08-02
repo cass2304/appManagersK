@@ -1,23 +1,23 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar >
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title text-center>Dashboard</ion-title> 
-  </ion-navbar> 
+    <ion-title text-center>Dashboard</ion-title>
+  </ion-navbar>
 </ion-header>
 
-<ion-content class="dashboard">  
+<ion-content class="dashboard">
   <ion-card>
-  <ion-card-content>
-    <p text-center>Welcome {{people.first_name}} {{people.last_name}}</p>
-  </ion-card-content>
-</ion-card>
+    <ion-card-content>
+      <p text-center>Welcome {{people.first_name}} {{people.last_name}}</p>
+    </ion-card-content>
+  </ion-card>
 
-<ion-list>
-  <ion-item text-center item-width="50%">
+  <ion-list>
+    <ion-item text-center item-width="50%">
       <ion-label>Date filters</ion-label>
-      <ion-select [(ngModel)]="dates" (ngModelChange)="loadData()"  interface="popover">
+      <ion-select [(ngModel)]="dates" (ngModelChange)="loadData()" interface="popover">
         <ion-option value="day">Day</ion-option>
         <ion-option value="day_old">Yesterday</ion-option>
         <ion-option value="week">Week</ion-option>
@@ -25,27 +25,30 @@
         <ion-option value="month">This month</ion-option>
       </ion-select>
     </ion-item>
-</ion-list>
+  </ion-list>
 
-<ion-content>
-  <p>
-    <button ion-button  style="height:120px" full block (click)="actionDashboard('client')">
-      <h3>Visited client  : {{counter.visit}} </h3>
-      </button> 
-      
-  </p>
-  <p>
-    <button ion-button  style="height:120px" full block (click)="actionDashboard('checkins')">
-      <h3>Visits made  : {{counter.checkins}} </h3>
-    </button>
-  </p>
-  <p>
-    <button ion-button  style="height:120px" full (click)="actionDashboard('users')" >
-      <h3>Active users  : {{counter.users}} </h3>
-    </button>
-  </p>
-  
-</ion-content>
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button style="height:120px" block   (click)="actionDashboard('client')"><h5>Visited client  : {{counter.visit}} </h5></button>
+        </ion-col>
+
+        <ion-col col-6>
+          <button ion-button style="height:120px" block   (click)="actionDashboard('checkins')"><h5>Visits made  : {{counter.checkins}} </h5></button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button style="height:120px" block  (click)="actionDashboard('users')"><h5>Active users  : {{counter.users}} </h5></button>
+        </ion-col>
+
+        <ion-col col-6>
+          <button ion-button style="height:120px" block   (click)="actionDashboard('pending')"><h5>Visits pending  : {{counter.pending}} </h5></button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
   <!--<ion-list>
     <ion-item *ngFor="let person of people; let i = index">
       <ion-avatar item-left>

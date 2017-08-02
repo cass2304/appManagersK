@@ -23,7 +23,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage = HelloIonicPage;
+  rootPage = Dashboard;
   pages: Array<{ title: string, component: any }>;
 
   constructor(
@@ -103,7 +103,7 @@ export class MyApp {
     } else {
       // close the menu when clicking a link from the menu
       this.menu.close();
-      // navigate to the new page if it is not the current page    
+      // navigate to the new page if it is not the current page
       this.nav.setRoot(page.component);
     }
   }

@@ -13,10 +13,9 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-list>
-    <ion-item text-center item-width="50%">
+  <ion-list style="margin-bottom:0px">
+    <ion-item>
       <ion-label>Date filters</ion-label>
       <ion-select [(ngModel)]="dates" (ngModelChange)="reload()" interface="popover">
         <ion-option value="day">Day</ion-option>
@@ -25,7 +24,10 @@
         <ion-option value="week_old">Last Week</ion-option>
         <ion-option value="month">This month</ion-option>
       </ion-select>
-    </ion-item>
+    </ion-item>   
+  </ion-list>
+  <ion-list >
+    <button ion-item  (click)="goToUSersPage()">Filters by users</button>
   </ion-list>
 
   <div padding>

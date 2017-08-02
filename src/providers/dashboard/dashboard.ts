@@ -99,4 +99,31 @@ export class DashboardProvider {
 
   }
 
+  loadCounterPending(Filters) {    
+
+    if (this.dataCheckin && (this.temFilter !== Filters))
+      return Promise.resolve(this.dataCheckin)
+
+    return new Promise((resolve, reject) => {
+      //expand[]:client
+      //expand[]:category
+      //expand[]:device
+      //expand[]:place
+      this.localStorage.getSession(value =>{
+        this.http.get(urlDashboard.urlAppCore + 'checkins/planned/count?date_range='+Filters+'&expand[]=client&expand[]=category&expand[]=device&expand[]=place&status=PENDING',{ headers: value })
+        .map(res => res.json())
+        .subscribe(
+        data => {          
+            this.dataCheckin = data;                    
+          resolve(this.dataCheckin);
+        }, err => {
+          reject(err)
+        }, () => { });
+      })
+      
+    })
+
+  }
+
+  //http://ws.dev.kipobusiness.com/api/checkins/planned/count?date_range=MONTH&expand%5B%5D=client&expand%5B%5D=category&expand%5B%5D=device&expand%5B%5D=place&status=PENDING
 }

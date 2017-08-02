@@ -12,15 +12,20 @@ import { ClientsProvider } from '../../providers/clients/clients'
 
 
 export class ClientSectionPage {
-  clients: any = []
+  clients: any = [];
+  filters: any = '';
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ClientsProvider: ClientsProvider) {   
-  this.getClients();
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public ClientsProvider: ClientsProvider) {
+      this.filters = navParams.get('filters');
+      this.getClients(this.filters);
     
   }  
 
-  getClients(){
-    this.ClientsProvider.getVisitedClient()
+  getClients(filters){
+    this.ClientsProvider.getVisitedClient(this.filters)
     .then(data =>{      
       this.clients = data
     }).catch(error => {

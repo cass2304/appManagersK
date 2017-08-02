@@ -17,16 +17,19 @@ import { ClientsProvider } from '../../providers/clients/clients';
 export class UserSectionPage {
 
   last: any=[];
+  filters : any ='';
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public users: ClientsProvider) {
-    this.loadUsersActivity();
+     this.filters = navParams.get('filters');   
+     this.loadUsersActivity(this.filters);     
   }
 
 
-  loadUsersActivity(){
-    this.users.activityUser()
-    .then(values =>{
-      console.log(values);   
+  loadUsersActivity(filters){
+    
+    this.users.activityUser(filters)
+    .then(values =>{      
       this.last = values.data
     }).catch(error => {
       console.log(error);

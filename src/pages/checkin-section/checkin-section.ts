@@ -16,17 +16,18 @@ import { ClientsProvider } from '../../providers/clients/clients';
 export class CheckinSectionPage {
 
   checkins: any=[];
-  filters_checkins: any = {date:{type:"week",start:"",end:""},order:"time_zone desc",filters:""}
+  filters_checkins: any = '';
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    public chekins: ClientsProvider) {
-    this.loadVisitedMades();
+    public chekins: ClientsProvider) {    
+    this.filters_checkins = navParams.get('filters');        
+    this.loadVisitedMades(this.filters_checkins);
   }  
 
-  loadVisitedMades(){    
-    this.chekins.getVisitedMade(this.filters_checkins)    
+  loadVisitedMades(filters){    
+    this.chekins.getVisitedMade(filters)    
     .then(data =>{       
       this.checkins = data
     }).catch(error => {
@@ -34,5 +35,11 @@ export class CheckinSectionPage {
       
     })
   }
+
+  /*loadUserViews(){
+    this.navCtrl.push(CheckinSectionPage, {
+          filters : this.filters
+        });
+  }*/
 
 }

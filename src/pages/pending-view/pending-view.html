@@ -1,0 +1,21 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Visits pending </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let pending of checkinsPending; let i = index">
+    <ion-avatar item-start class="fix-margin">      
+        <ion-icon name="navigate"></ion-icon>      
+    </ion-avatar>
+    <h2>User : {{pending.user}}</h2>
+    <h3>Objective: {{pending.objective}}</h3>
+    <h3>Client: {{pending.client}}</h3>
+    <p>Place: {{pending.place}}</p>
+    <p>Date time: {{pending.date_time}}</p>
+  </ion-item>
+</ion-content>

@@ -29,7 +29,7 @@ export class ProfileServiceProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', "OTdiMGRmZWEwMzYzY2IxZjRiMDExMzA4MTdkYmM5YTdlNWU3ZmM0Yzk1N2U2YTU4NzNhODc0MWI1Y2NiZTM0Ynw2YTQ5ZDk1OTZlNjZhMzgxYjM0MDk0OTkyNzA4MTA1NnxzYWxlc0BraXBvLmNv");
+      headers.append('Authorization', value);
       
       this.http.get(urlApp.urlAppCore + 'profile', { headers: headers })
         .map(res => res.json())

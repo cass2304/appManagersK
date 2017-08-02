@@ -14,7 +14,8 @@ import { CheckinSectionPage } from '../pages/checkin-section/checkin-section';
 import { UserSectionPage } from '../pages/user-section/user-section'
 import { CheckinsViewPage } from '../pages/checkins-view/checkins-view';
 import { NotificationsViewPage } from '../pages/notifications-view/notifications-view';
-
+import { PendingViewPage } from '../pages/pending-view/pending-view';
+import { SearchUsersPage } from '../pages/search-users/search-users';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +28,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { LocalStorageServiceProvider } from '../providers/local-storage-service/local-storage-service';
 import { ClientsProvider } from '../providers/clients/clients';
 import { CheckinServicesProvider } from '../providers/checkin-services/checkin-services';
+import { SharedServiceProvider } from '../providers/shared-service/shared-service';
+
 
 
 
@@ -41,7 +44,9 @@ import { CheckinServicesProvider } from '../providers/checkin-services/checkin-s
     CheckinSectionPage,
     UserSectionPage,
     CheckinsViewPage,
-    NotificationsViewPage
+    NotificationsViewPage,
+    PendingViewPage,
+    SearchUsersPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,9 @@ import { CheckinServicesProvider } from '../providers/checkin-services/checkin-s
     CheckinSectionPage,
     UserSectionPage,
     CheckinsViewPage,
-    NotificationsViewPage
+    NotificationsViewPage,
+    PendingViewPage,
+    SearchUsersPage
   ],
   providers: [
     StatusBar,
@@ -74,8 +81,8 @@ import { CheckinServicesProvider } from '../providers/checkin-services/checkin-s
     LocalStorageServiceProvider,
     ClientsProvider,
     CheckinServicesProvider,
-    OneSignal
-    
+    OneSignal,
+    SharedServiceProvider
   ]
 })
 export class AppModule {}

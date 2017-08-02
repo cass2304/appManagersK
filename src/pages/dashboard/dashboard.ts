@@ -6,6 +6,8 @@ import { ClientSectionPage } from '../client-section/client-section';
 import { CheckinSectionPage } from '../checkin-section/checkin-section';
 import { UserSectionPage } from '../user-section/user-section';
 import { LocalStorageServiceProvider } from '../../providers/local-storage-service/local-storage-service'
+import { PendingViewPage } from '../pending-view/pending-view';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-dashboard',
@@ -19,14 +21,16 @@ export class Dashboard {
   public people: any = {};
   public counter: any = {};
   dataUser: '';
-  filters: any = { date: { type: "week", start: "", end: "" }, filters: "" }
+  filters: any = { date: { type: "", start: "", end: "" }, filters: "" }
+  //filters: any = { date: { type: "week", start: "", end: "" }, order: "visits desc", filters: "" }
   dates: any = 'day'
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public peopleService: ProfileServiceProvider,
     public dashboardService: DashboardProvider,
-    public localStorage: LocalStorageServiceProvider) {
+    public localStorage: LocalStorageServiceProvider,
+    public alerCtrl: AlertController) {
 
 
     if (this.navParams.get('data') !== undefined) {
@@ -36,8 +40,17 @@ export class Dashboard {
     this.loadData()
   }
 
-  loadProfile() { //get from providers  
+  doAlert() {
+    let alert = this.alerCtrl.create({
+      //title: 'wrong access',
+      message: 'No data',
+      buttons: ['Ok']
+    });
+    alert.present()
+  }
 
+  loadProfile() { //get from providers  
+    
     if (!this.dataUser) {
       this.localStorage.getToken(token => {
         this.dataUser = token;
@@ -75,29 +88,68 @@ export class Dashboard {
       }).catch(error => {
         console.log(error);
       })
+      // button 4
+      this.dashboardService.loadCounterPending(this.dates)
+      .then(pending => {        
+        if(!pending.count){
+          this.counter.pending = pending.checkin_planned_done;
+        }else{
+          this.counter.pending = pending.count;
+        }                
+      }).catch(error => {
+        console.log(error);
+      })
 
   }
 
-  actionDashboard(expression) {
-
+  actionDashboard(expression) {    
     switch (expression) {
-      case 'users':
-        this.navCtrl.push(UserSectionPage, {
-          data: this.dataUser
+      case 'users':  // Active users
+        if(this.counter.users === 0){
+          this.doAlert()
+          return false
+        }
+        delete this.filters.order
+        this.navCtrl.push(UserSectionPage, {          
+          filters : this.filters
+        });
+        
+        break;
+      case 'checkins': // visites made
+        if(this.counter.checkins === 0){
+          this.doAlert()
+          return false
+        }
+        this.filters.order = "time_zone desc";
+        this.navCtrl.push(CheckinSectionPage, {
+          filters : this.filters
         });
 
-        //Statements executed when the result of expression matches value1
         break;
-      case 'checkins':
-        this.navCtrl.push(CheckinSectionPage, {
-          data: this.dataUser
+      
+      case 'pending': // visits pending 
+      if(this.dates === 'day'){
+        this.dates = 'today';
+      }
+      if(this.counter.pending === 0){
+          this.doAlert()
+          return false
+        }
+
+      this.filters = { filters: [{ filter: "status", type: "in", value: ["PENDING"] }], date: { date: this.dates} };
+        this.navCtrl.push(PendingViewPage, {
+          filters : this.filters
         });
-        //Statements executed when the result of expression matches value2
+
         break;
       default:
-        //Statements executed when none of the values match the value of the expression
+        if(this.counter.visit === 0){
+          this.doAlert()
+          return false
+        }
+        this.filters.order = "visits desc"; // visited client
         this.navCtrl.push(ClientSectionPage, {
-          data: this.dataUser
+          filters : this.filters
         });
     }
     //break;

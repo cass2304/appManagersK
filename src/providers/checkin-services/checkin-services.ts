@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { LocalStorageServiceProvider } from '../local-storage-service/local-storage-service';
-import urlReports from '../../common/comon';
+import urlReports  from '../../common/comon';
 import 'rxjs/add/operator/map';
 
 
@@ -22,21 +22,18 @@ export class CheckinServicesProvider {
 
     return new Promise((resolve, reject) => {
       this.localStorage.getSession(value => {
-        this.http.post(urlReports.reports + '/checkin/planned/?limit=10&page=1&report=planned', filters, { headers: value })
+        this.http.post(urlReports.reports + 'checkin/planned/?limit=10&page=1&report=planned', filters, { headers: value })
           .map(res => res.json())
           .subscribe(
-          data => {
+          data => {            
             this.planned = data.data;
             resolve(this.planned);
           }, err => {
             reject(err)
-          });
+          }, () => { this.planned =null });
       })
 
     })
-
-
   }
-
 
 }
