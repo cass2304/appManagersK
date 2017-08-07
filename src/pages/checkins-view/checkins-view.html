@@ -31,7 +31,7 @@
   </ion-list>
 
   <div padding>
-    <ion-segment [(ngModel)]="done">
+    <ion-segment [(ngModel)]="checkins">
       <ion-segment-button value="done">
         Done
       </ion-segment-button>
@@ -41,18 +41,18 @@
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="done">
+  <div [ngSwitch]="checkins">
     <ion-list *ngSwitchCase="'planned'">
      <ion-card *ngFor="let pending of checkinsPending; let i = index">
         <ion-card-header>
           <ion-card-title>
-            <h2>User: {{pending.user}}</h2>
+            <h2>User: {{pending.device.name}}</h2>
           </ion-card-title>
           <p>Date and time : {{pending.date_time}}</p>
-          <p>Client: {{pending.client}}</p>
+          <p>Client: {{pending.client.name}}</p>
         </ion-card-header>
         <ion-card-content>
-          <p>Category: {{pending.category_name}}</p>
+          <p>Category: {{pending.category.name}}</p>
           <p>Day range: {{pending.date_range}}</p>
           <p>Objetive: {{pending.objective}}</p>
         </ion-card-content>

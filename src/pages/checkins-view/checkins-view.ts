@@ -23,11 +23,12 @@ export class CheckinsViewPage {
 
   checkinsDone: any = [];
   checkinsPending: any = [];
-  dates: any = 'day'
-  filters: any = { filters: [{ filter: "status", type: "in", value: ["PENDING"] }], date: { date: this.dates } };
+  dates: any = 'day';
+  filters: any = { date: { date: this.dates } };
   filters_checkins: any = { date: { type: "week", start: "", end: "" }, order: "time_zone desc", filters: [] }
-  shared : any = {}
-  devices : any = []
+  shared : any = {};
+  devices : any = [];
+  checkins : string = 'done';
 
    constructor(
     public navCtrl: NavController,
@@ -59,7 +60,6 @@ export class CheckinsViewPage {
     }
 
     this.filters_checkins.date.type = this.dates;
-    console.log(this.filters_checkins,'filters');
 
     this.chekins.getVisitedMade(this.filters_checkins)
       .then(data => {
@@ -71,7 +71,11 @@ export class CheckinsViewPage {
 
   loadPending() {
 
-    this.dates === 'day' ? this.filters.date.date = 'today':this.filters.date.date = this.dates;
+    if(this.devices && this.devices.length > 0){
+      this.filters.devices = '&devices[] = '+ this.devices;
+    }
+
+    this.filters.date.date = this.dates;
       
     this.pending.getCheckinPlanned(this.filters)
       .then(data => {

@@ -70,8 +70,12 @@ export class SearchUsersPage {
   }
 
   itemSelected(item) {
-    this.params.push(item.device_id);
-      sharing.setFillDevices(this.params);
+     if (this.params.indexOf(item.device_id) === -1){
+         this.params.push(item.device_id);
+         sharing.setFillDevices(this.params);
+     }else {
+         this.params.splice(this.params.indexOf(item.device_id),1);
+     }
   }
 
 }

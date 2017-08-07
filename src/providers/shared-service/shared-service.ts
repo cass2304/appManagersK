@@ -13,7 +13,7 @@ export class SharedServiceProvider {
   }
 
   setFillDevices(value) {
-    console.log(value);
+    console.log('fill',value);
     this.devices = value;
   }
 
