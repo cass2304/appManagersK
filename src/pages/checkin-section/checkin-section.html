@@ -13,18 +13,6 @@
 </ion-header>
 
 <ion-content>
-  <!--<ion-item *ngFor="let checkin of checkins; let i = index">
-    <ion-avatar item-start class="fix-margin">      
-        <ion-icon name="person"></ion-icon>      
-    </ion-avatar>
-    <h2>Date and time : {{checkin.time_zone}}</h2>
-    <h3>User: {{checkin.device_name}}</h3>
-    <h3>Client: {{checkin.device_name}}</h3>
-    <p>Category: {{checkin.category_name}}</p>
-    <p>Subcateries: {{checkin.subcategories}}</p>
-    <p>Comments: {{checkin.comments}}</p>
-  </ion-item>-->
- 
   <ion-card *ngFor="let checkin of checkins; let i = index">
   <ion-card-header>
     <ion-card-title>
@@ -39,4 +27,9 @@
     <p>Comments: {{checkin.comments}}</p>
   </ion-card-content>
 </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

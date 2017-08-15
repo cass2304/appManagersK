@@ -17,6 +17,8 @@ export class CheckinSectionPage {
 
   checkins: any=[];
   filters_checkins: any = '';
+  page : any = 0;
+  limit : any = 10;
 
   constructor(
     public navCtrl: NavController, 
@@ -36,10 +38,13 @@ export class CheckinSectionPage {
     })
   }
 
-  /*loadUserViews(){
-    this.navCtrl.push(CheckinSectionPage, {
-          filters : this.filters
-        });
-  }*/
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    this.loadVisitedMades(this.filters_checkins);
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
 
+    }, 500);
+  }
 }
